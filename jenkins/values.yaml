@@ -94,9 +94,9 @@ controller:
   # jenkinsOpts: ""
   # If you are using the ingress definitions provided by this chart via the `controller.ingress` block the configured hostname will be the ingress hostname starting with `https://` or `http://` depending on the `tls` configuration.
   # The Protocol can be overwritten by specifying `controller.jenkinsUrlProtocol`.
-  # jenkinsUrlProtocol: "https"
+  jenkinsUrlProtocol: "https"
   # If you are not using the provided ingress you can specify `controller.jenkinsUrl` to change the url definition.
-  # jenkinsUrl: ""
+  jenkinsUrl: "https://jenkins.paasta.gantry.ai"
   # If you set this prefix and use ingress controller then you might want to set the ingress path below
   # jenkinsUriPrefix: "/jenkins"
   # Enable pod security context (must be `true` if podSecurityContextOverride, runAsUser or fsGroup are set)
@@ -459,12 +459,13 @@ controller:
     annotations: 
     # kubernetes.io/ingress.class: nginx
       kubernetes.io/tls-acme: "true"
+      kubernetes.io/ssl-redirect: "true"
       cert-manager.io/cluster-issuer: letsencrypt-nginx
     # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
     # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
     ingressClassName: nginx
     hosts:
-      - a
+      - jenkins.paasta.gantry.ai
     # Set this path to jenkinsUriPrefix above or use annotations to rewrite path
     # path: "/jenkins"
     # configures the hostname e.g. jenkins.example.com
@@ -571,12 +572,12 @@ controller:
 
   httpsKeyStore:
     jenkinsHttpsJksSecretName: ''
-    jenkinsHttpsJksSecretKey: "jenkins-jks-file"
+    jenkinsHttpsJksSecretKey: "jenkins.cluster.local"
     jenkinsHttpsJksPasswordSecretName: ""
     jenkinsHttpsJksPasswordSecretKey: "https-jks-password"
     enable: false
     disableSecretMount: false
-    httpPort: 8081
+    httpsPort: 8081
     path: "/var/jenkins_keystore"
     fileName: "keystore.jks"
     password: "password"
@@ -627,7 +628,7 @@ agent:
   enabled: true
   defaultsProviderTemplate: ""
   # URL for connecting to the Jenkins controller
-  jenkinsUrl: "https://jenkins.paasta.gantry.ai"
+  jenkinsUrl:
   # connect to the specified host and port, instead of connecting directly to the Jenkins controller
   jenkinsTunnel:
   kubernetesConnectTimeout: 5

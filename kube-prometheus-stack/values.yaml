@@ -331,13 +331,15 @@ alertmanager:
   #       {{ end }}
 
   ingress:
-    enabled: false
+    enabled: true
 
     # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
     # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
-    # ingressClassName: nginx
+    ingressClassName: nginx
 
-    annotations: {}
+    annotations:       
+      cert-manager.io/cluster-issuer: letsencrypt-nginx
+      kubernetes.io/tls-acme: "true"
 
     labels: {}
 
@@ -349,8 +351,8 @@ alertmanager:
 
     ## Hosts must be provided if Ingress is enabled.
     ##
-    hosts: []
-      # - alertmanager.domain.com
+    hosts: 
+      alertmanager.paasta.gantry.ai
 
     ## Paths to use for ingress rules - one path should match the alertmanagerSpec.routePrefix
     ##
@@ -364,10 +366,10 @@ alertmanager:
     ## TLS configuration for Alertmanager Ingress
     ## Secret must be manually created in the namespace
     ##
-    tls: []
-    # - secretName: alertmanager-general-tls
-    #   hosts:
-    #   - alertmanager.example.com
+    tls:
+    - secretName: alertmanager-general-tls
+      hosts:
+      - alertmanager.paasta.gantry.ai
 
   ## Configuration for Alertmanager secret
   ##
@@ -884,7 +886,7 @@ grafana:
   ingress:
     ## If true, Grafana Ingress will be created
     ##
-    enabled: false
+    enabled: true
 
     ## IngressClassName for Grafana Ingress.
     ## Should be provided if Ingress is enable.
@@ -893,7 +895,9 @@ grafana:
 
     ## Annotations for Grafana Ingress
     ##
-    annotations: {}
+    annotations: 
+      cert-manager.io/cluster-issuer: letsencrypt-nginx
+      kubernetes.io/tls-acme: "true"
       # kubernetes.io/ingress.class: nginx
       # kubernetes.io/tls-acme: "true"
 
@@ -904,9 +908,8 @@ grafana:
     ## Hostnames.
     ## Must be provided if Ingress is enable.
     ##
-    # hosts:
-    #   - grafana.domain.com
-    hosts: []
+    hosts:
+      - grafana.paasta.gantry.ai
 
     ## Path for grafana ingress
     path: /
@@ -914,10 +917,10 @@ grafana:
     ## TLS configuration for grafana Ingress
     ## Secret must be manually created in the namespace
     ##
-    tls: []
-    # - secretName: grafana-general-tls
-    #   hosts:
-    #   - grafana.example.com
+    tls:
+    - secretName: grafana-general-tls
+      hosts:
+      - grafana.paasta.gantry.ai
 
   sidecar:
     dashboards:
@@ -2052,15 +2055,15 @@ prometheusOperator:
 
     # Use certmanager to generate webhook certs
     certManager:
-      enabled: false
+      enabled: true
       # self-signed root certificate
       rootCert:
         duration: ""  # default to be 5y
       admissionCert:
         duration: ""  # default to be 1y
-      # issuerRef:
-      #   name: "issuer"
-      #   kind: "ClusterIssuer"
+      issuerRef:
+        name: "letsencrypt-nginx"
+        kind: "ClusterIssuer"
 
   ## Namespaces to scope the interaction of the Prometheus Operator and the apiserver (allow list).
   ## This is mutually exclusive with denyNamespaces. Setting this to an empty object will disable the configuration

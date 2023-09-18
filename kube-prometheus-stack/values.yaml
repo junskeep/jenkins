@@ -239,7 +239,7 @@ alertmanager:
   ##
   podDisruptionBudget:
     enabled: false
-    minAvailable: 1
+    minAvailable: 2
     maxUnavailable: ""
 
   ## Alertmanager configuration directives

@@ -627,7 +627,7 @@ agent:
   enabled: true
   defaultsProviderTemplate: ""
   # URL for connecting to the Jenkins controller
-  jenkinsUrl: https://jenkins.paasta.gantry.ai/
+  jenkinsUrl: "https://jenkins.paasta.gantry.ai"
   # connect to the specified host and port, instead of connecting directly to the Jenkins controller
   jenkinsTunnel:
   kubernetesConnectTimeout: 5

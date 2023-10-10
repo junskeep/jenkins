@@ -1,0 +1,184 @@
+credentials:
+  system:
+    domainCredentials:
+      - credentials:
+          - string:
+              id: "github-api"
+              scope: GLOBAL
+              secret: ""
+          - usernamePassword:
+              id: "github-account"
+              password: ""
+              scope: GLOBAL
+              username: ""
+          - string:
+              id: "ghcr"
+              scope: GLOBAL
+              secret: ""
+          - string:
+              id: "jenkins-webhook-secret"
+              scope: GLOBAL
+              secret: ""
+jenkins:
+  agentProtocols:
+    - "JNLP4-connect"
+    - "Ping"
+  authorizationStrategy:
+    loggedInUsersCanDoAnything:
+      allowAnonymousRead: false
+  clouds:
+    - kubernetes:
+        containerCap: 10
+        containerCapStr: "10"
+        jenkinsTunnel: "jenkins-agent.jenkins.svc.cluster.local:50000"
+        jenkinsUrl: "http://jenkins.jenkins.svc.cluster.local:80"
+        name: "kubernetes"
+        namespace: "jenkins"
+        podLabels:
+          - key: "jenkins/jenkins-jenkins-agent"
+            value: "true"
+        serverUrl: "https://kubernetes.default"
+        templates:
+          - containers:
+              - args: "9999999"
+                command: "sleep"
+                image: "alpine:3.17"
+                livenessProbe:
+                  failureThreshold: 0
+                  initialDelaySeconds: 0
+                  periodSeconds: 0
+                  successThreshold: 0
+                  timeoutSeconds: 0
+                name: "alpine"
+                workingDir: "/home/jenkins/agent"
+              - args: "9999999"
+                command: "sleep"
+                image: "gradle:6.9.2-jdk17"
+                livenessProbe:
+                  failureThreshold: 0
+                  initialDelaySeconds: 0
+                  periodSeconds: 0
+                  successThreshold: 0
+                  timeoutSeconds: 0
+                name: "gradle"
+                workingDir: "/home/jenkins/agent"
+              - args: "9999999"
+                command: "sleep"
+                image: "gcr.io/kaniko-project/executor:debug"
+                livenessProbe:
+                  failureThreshold: 0
+                  initialDelaySeconds: 0
+                  periodSeconds: 0
+                  successThreshold: 0
+                  timeoutSeconds: 0
+                name: "kaniko"
+                workingDir: "/home/jenkins/agent"
+            id: "unique-id-for-spring-template"
+            label: "spring"
+            name: "spring"
+            namespace: "jenkins"
+            yamlMergeStrategy: "override"
+  crumbIssuer:
+    standard:
+      excludeClientIPFromCrumb: true
+  disableRememberMe: false
+  labelAtoms:
+    - name: "built-in"
+    - name: "spring"
+  markupFormatter: "plainText"
+  mode: NORMAL
+  myViewsTabBar: "standard"
+  numExecutors: 0
+  primaryView:
+    all:
+      name: "all"
+  projectNamingStrategy: "standard"
+  quietPeriod: 5
+  remotingSecurity:
+    enabled: true
+  scmCheckoutRetryCount: 0
+  securityRealm:
+    local:
+      allowsSignup: false
+      enableCaptcha: false
+      users:
+        - id: "admin"
+          name: "Jenkins Admin"
+          properties:
+            - "apiToken"
+            - "mailer"
+            - "myView"
+            - preferredProvider:
+                providerId: "default"
+            - "timezone"
+  slaveAgentPort: 50000
+  updateCenter:
+    sites:
+      - id: "default"
+        url: "https://updates.jenkins.io/update-center.json"
+  views:
+    - all:
+        name: "all"
+  viewsTabBar: "standard"
+globalCredentialsConfiguration:
+  configuration:
+    providerFilter: "none"
+    typeFilter: "none"
+security:
+  apiToken:
+    creationOfLegacyTokenEnabled: false
+    tokenGenerationOnCreationEnabled: false
+    usageStatisticsEnabled: true
+  gitHooks:
+    allowedOnAgents: false
+    allowedOnController: false
+  gitHostKeyVerificationConfiguration:
+    sshHostKeyVerificationStrategy: "knownHostsFileVerificationStrategy"
+  sSHD:
+    port: -1
+unclassified:
+  buildDiscarders:
+    configuredBuildDiscarders:
+      - "jobBuildDiscarder"
+  fingerprints:
+    fingerprintCleanupDisabled: false
+    storage: "file"
+  gitHubPluginConfig:
+    configs:
+      - credentialsId: "github-api"
+        name: "github"
+    hookSecretConfigs:
+      - credentialsId: "jenkins-webhook-secret"
+    hookUrl: "http://<EXTERNAL-IP>/github-webhook/"
+#  junitTestResultStorage:
+#    storage: "file"
+#  location:
+#    adminAddress: "<NAVER-ID>@naver.com"
+#    url: "http://<EXTERNAL-IP>/"
+#  mailer:
+#    authentication:
+#      password: ""
+#      username: "<NAVER-ID>"
+#    charset: "UTF-8"
+#    smtpHost: "smtp.naver.com"
+#    smtpPort: "587"
+#    useSsl: false
+#    useTls: true
+  pollSCM:
+    pollingThreadCount: 10
+  scmGit:
+    addGitTagAction: false
+    allowSecondFetch: false
+    createAccountBasedOnEmail: false
+    disableGitToolChooser: false
+    hideCredentials: false
+    showEntireCommitSummaryInChanges: false
+    useExistingAccountWithSameEmail: false
+tool:
+  git:
+    installations:
+      - home: "git"
+        name: "Default"
+  mavenGlobalConfig:
+    globalSettingsProvider: "standard"
+    settingsProvider: "standard"

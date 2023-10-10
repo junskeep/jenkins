@@ -148,7 +148,7 @@ unclassified:
         name: "github"
     hookSecretConfigs:
       - credentialsId: "jenkins-webhook-secret"
-    hookUrl: "http://211.47.7.78/github-webhook/"
+    hookUrl: "https://jenkins.prj.ljy-test.com/github-webhook/"
 #  junitTestResultStorage:
 #    storage: "file"
 #  location:

@@ -369,7 +369,7 @@ alertmanager:
     tls:
     - secretName: alertmanager-general-tls
       hosts:
-      - alertmanager.js.kuberix.com
+      - alertmanager.prj.ljy-test.com
 
   ## Configuration for Alertmanager secret
   ##
@@ -909,7 +909,7 @@ grafana:
     ## Must be provided if Ingress is enable.
     ##
     hosts:
-      - grafana.js.kuberix.com
+      - grafana.prj.ljy-test.com
 
     ## Path for grafana ingress
     path: /
@@ -920,7 +920,7 @@ grafana:
     tls:
     - secretName: grafana-general-tls
       hosts:
-      - grafana.js.kuberix.com
+      - grafana.prj.ljy-test.com
   sidecar:
     dashboards:
       enabled: true

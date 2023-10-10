@@ -1902,7 +1902,7 @@ server:
     ## Hostnames must be provided if Ingress is enabled.
     ## Secrets must be manually created in the namespace
     hosts:
-      - argocd.js.kuberix.com
+      - argocd.prj.ljy-test.com
 
     # -- List of ingress paths
     paths:
@@ -1923,7 +1923,7 @@ server:
     tls:
     - secretName: argocd-secret 
       hosts:
-        - argocd.js.kuberix.com
+        - argocd.prj.ljy-test.com
 
     # -- Uses `server.service.servicePortHttps` instead `server.service.servicePortHttp`
     https: false

@@ -468,7 +468,7 @@ controller:
     # Set this path to jenkinsUriPrefix above or use annotations to rewrite path
     # path: "/jenkins"
     # configures the hostname e.g. jenkins.example.com
-    hostName: "jenkins.paasta.gantry.ai"
+    hostName: "jenkins.js.kuberix.com"
     tls:
     - secretName: jenkins.cluster.local
       hosts:

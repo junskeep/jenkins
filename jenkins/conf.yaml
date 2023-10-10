@@ -104,6 +104,7 @@ jenkins:
       users:
         - id: "admin"
           name: "Jenkins Admin"
+          password: "${chart-admin-password}"
           properties:
             - "apiToken"
             - "mailer"
@@ -134,8 +135,6 @@ security:
     allowedOnController: false
   gitHostKeyVerificationConfiguration:
     sshHostKeyVerificationStrategy: "knownHostsFileVerificationStrategy"
-  sSHD:
-    port: -1
 unclassified:
   buildDiscarders:
     configuredBuildDiscarders:

@@ -149,7 +149,7 @@ unclassified:
         name: "github"
     hookSecretConfigs:
       - credentialsId: "jenkins-webhook-secret"
-    hookUrl: "http://<EXTERNAL-IP>/github-webhook/"
+    hookUrl: "http://211.47.7.78/github-webhook/"
 #  junitTestResultStorage:
 #    storage: "file"
 #  location:

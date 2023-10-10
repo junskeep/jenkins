@@ -352,7 +352,7 @@ alertmanager:
     ## Hosts must be provided if Ingress is enabled.
     ##
     hosts: 
-      - alertmanager.paasta.gantry.ai
+      - alertmanager.js.kuberix.com
 
     ## Paths to use for ingress rules - one path should match the alertmanagerSpec.routePrefix
     ##
@@ -369,7 +369,7 @@ alertmanager:
     tls:
     - secretName: alertmanager-general-tls
       hosts:
-      - alertmanager.paasta.gantry.ai
+      - alertmanager.js.kuberix.com
 
   ## Configuration for Alertmanager secret
   ##
@@ -909,7 +909,7 @@ grafana:
     ## Must be provided if Ingress is enable.
     ##
     hosts:
-      - grafana.paasta.gantry.ai
+      - grafana.js.kuberix.com
 
     ## Path for grafana ingress
     path: /
@@ -920,8 +920,7 @@ grafana:
     tls:
     - secretName: grafana-general-tls
       hosts:
-      - grafana.paasta.gantry.ai
-
+      - grafana.js.kuberix.com
   sidecar:
     dashboards:
       enabled: true

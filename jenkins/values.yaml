@@ -156,7 +156,7 @@ controller:
     startupProbe:
       httpGet:
         path: '{{ default "" .Values.controller.jenkinsUriPrefix }}/login'
-        port: http
+        port: https
       periodSeconds: 10
       timeoutSeconds: 5
       failureThreshold: 12
@@ -164,7 +164,7 @@ controller:
       failureThreshold: 5
       httpGet:
         path: '{{ default "" .Values.controller.jenkinsUriPrefix }}/login'
-        port: http
+        port: https
       periodSeconds: 10
       timeoutSeconds: 5
       # If Startup Probe is not supported on your Kubernetes cluster, you might want to use "initialDelaySeconds" instead.
@@ -174,7 +174,7 @@ controller:
       failureThreshold: 3
       httpGet:
         path: '{{ default "" .Values.controller.jenkinsUriPrefix }}/login'
-        port: http
+        port: https
       periodSeconds: 10
       timeoutSeconds: 5
       # If Startup Probe is not supported on your Kubernetes cluster, you might want to use "initialDelaySeconds" instead.
@@ -346,9 +346,9 @@ controller:
         allowsSignup: false
         enableCaptcha: false
         users:
-        - id: "${chart-admin-username}"
+        - id: "admin"
           name: "Jenkins Admin"
-          password: "admin"
+          password: "kuberix!!"
     # Ignored if authorizationStrategy is defined in controller.JCasC.configScripts
     authorizationStrategy: |-
       loggedInUsersCanDoAnything:
